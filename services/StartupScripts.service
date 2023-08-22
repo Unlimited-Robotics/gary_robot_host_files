@@ -1,0 +1,10 @@
+[Unit]
+Description=Startup scripts for Jetson
+After=network-online.target
+
+[Service]
+User=root
+ExecStart=bash -c "parallel -j0 ::: /startup_scripts/*"
+
+[Install]
+WantedBy=multi-user.target
