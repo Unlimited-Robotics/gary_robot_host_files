@@ -1,5 +1,5 @@
 #!/bin/bash
 
-export DISPLAY=$(cat /tmp/display_result.txt)
+export DISPLAY=:0
 pkill vino
 /usr/lib/vino/vino-server --display=$DISPLAY
