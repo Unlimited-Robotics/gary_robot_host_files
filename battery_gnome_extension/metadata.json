@@ -1,0 +1,9 @@
+{
+    "name": "Random Battery Extension",
+    "description": "Displays a random value and changes icon based on the value.",
+    "version": "1.0",
+    "shell-version": ["3.36"],
+    "uuid": "random-battery-extension@yourusername",
+    "url": "https://github.com/yourusername/random-battery-extension",
+    "stylesheet": "styles.css"
+}

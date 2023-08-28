@@ -1,0 +1,9 @@
+.percentage-label {
+    color: white;
+    margin-right: 5px;
+}
+
+.panel-box {
+    display: flex;
+    align-items: center;
+}
