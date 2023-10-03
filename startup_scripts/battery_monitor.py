@@ -75,6 +75,12 @@ def main():
                         battery_charging = 'C'
                     battery_charging_last_time = time.time()
                     update_file = True
+        
+        else:
+            # If not message received, set to default values
+            battery_level = DEFAULT_BATTERY_LEVEL_STR
+            battery_charging = DEFAULT_BATTERY_CHARGING_STR
+            update_file = True
 
         
         if battery_level not in \
