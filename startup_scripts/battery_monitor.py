@@ -102,7 +102,7 @@ def low_battery_sender(queue: Queue):
                         print("Messages NOT sent")
                 
                 # Play sound
-                os.system(f'paplay --device {UR_SOUND_OUT} /opt/raya_os/data/media/sound/very_low_battery.wav')
+                os.system(f'paplay --device {UR_SOUND_OUT} {os.getcwd()}/data/very_low_battery.wav')
             time.sleep(2)
     except Exception as e:
         print(f"Error with CAN configuration: {e}")
