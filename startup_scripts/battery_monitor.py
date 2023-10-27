@@ -19,16 +19,12 @@ def retrieve_env_variable(name: str):
     return rest[:search_enter]
 ​
 GARY_SENSORS_CAN_INTERFACE = retrieve_env_variable("GARY_SENSORS_CAN_INTERFACE")
-# print(GARY_SENSORS_CAN_INTERFACE)
 ​
 BATTERY_CAN_ID = int(retrieve_env_variable("GARY_SENSORS_MC_ID"),base=16)
-# print(BATTERY_CAN_ID)
 ​
 GARY_LEDS_CAN_INTERFACE = retrieve_env_variable("GARY_LEDS_CAN_INTERFACE")
-# print(GARY_LEDS_CAN_INTERFACE)
 ​
 UR_SOUND_OUT = retrieve_env_variable("UR_SOUND_OUT")
-# print(UR_SOUND_OUT)
 ​
 BATTERY_LOW_LEVEL = 30
 BATTERY_CRITICAL_LEVEL = 10
@@ -57,7 +53,6 @@ def write_file():
     global battery_charging_last_time
     global update_file
 ​
-    # print(f'{battery_charging}{battery_level}')
     with open(BATTERY_FILE_PATH, "w") as f:
         f.write(
                 f'{battery_charging}{battery_level}\n'
@@ -72,7 +67,6 @@ def low_battery_sender(queue: Queue):
                 data = queue.get(block=False)
                 if data is not None:
                     battery_level, chargin_state = data
-                    # print(f'Battery level: {battery_level}, Charging {str(chargin_state)}')
             except Empty:
                 pass
             speed = 0x16 if battery_level <= BATTERY_CRITICAL_LEVEL else 0x32
@@ -101,7 +95,6 @@ def low_battery_sender(queue: Queue):
                     except can.CanError:
                         print("Messages NOT sent")
                 
-                # Play sound
                 os.system(f'paplay --device {UR_SOUND_OUT} {os.getcwd()}/data/very_low_battery.wav')
             time.sleep(2)
     except Exception as e:
@@ -131,12 +124,9 @@ def main():
         with can.interface.Bus(channel=GARY_SENSORS_CAN_INTERFACE,bustype='socketcan') as bus: 
             while True:
                 message = bus.recv(timeout=None)
-                # print(f'Battery message: {list(message.data)}')
                 if message is not None:
-                    # print(f'arb_id: {message.arbitration_id}, data: {list(message.data)}')
                     if message.arbitration_id==BATTERY_CAN_ID:
                         # Message from microcontroller
-                        # print(f'Battery ID recv msg {int(message.data[0])}')
                         if message.data[0]==0x22:
                             # Battery level message
                             battery_level = str(int(message.data[7])).zfill(3)
@@ -163,7 +153,6 @@ def main():
                     if (time.time() - battery_level_last_time) >= MESSAGE_TIMEOUT:
                         battery_level = DEFAULT_BATTERY_LEVEL_STR
                         update_file = True
-​
 ​
                 if battery_charging not in \
                         [DEFAULT_BATTERY_CHARGING_STR, INITIAL_BATTERY_CHARGING_STR]:
