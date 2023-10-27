@@ -1,11 +1,11 @@
 #!/bin/python3
-​
+
 import can
 import time
 import os
 from queue import Queue, Empty, Full
 from threading import Thread
-​
+
 def retrieve_env_variable(name: str):
     ENV_FILE_PATH = '/opt/raya_os/env'
     env_file = open(ENV_FILE_PATH,'r').read()
@@ -17,47 +17,47 @@ def retrieve_env_variable(name: str):
     rest=env_file[ini:]
     search_enter=rest.find('\n')
     return rest[:search_enter]
-​
+
 GARY_SENSORS_CAN_INTERFACE = retrieve_env_variable("GARY_SENSORS_CAN_INTERFACE")
-​
+
 BATTERY_CAN_ID = int(retrieve_env_variable("GARY_SENSORS_MC_ID"),base=16)
-​
+
 GARY_LEDS_CAN_INTERFACE = retrieve_env_variable("GARY_LEDS_CAN_INTERFACE")
-​
+
 UR_SOUND_OUT = retrieve_env_variable("UR_SOUND_OUT")
-​
+
 BATTERY_LOW_LEVEL = 30
 BATTERY_CRITICAL_LEVEL = 10
-​
+
 BATTERY_FILE_PATH = '/tmp/battery_level'
 MESSAGE_TIMEOUT = 180 # 180 seconds (3 minutes)
-​
+
 INITIAL_BATTERY_LEVEL_STR = '!!!'
 INITIAL_BATTERY_CHARGING_STR = '!'
 DEFAULT_BATTERY_LEVEL_STR = '---'
 DEFAULT_BATTERY_CHARGING_STR = '-'
-​
-​
+
+
 # global variabled
 battery_level = INITIAL_BATTERY_LEVEL_STR
 battery_level_last_time = time.time()
 battery_charging = INITIAL_BATTERY_CHARGING_STR
 battery_charging_last_time = time.time()
 update_file = False
-​
+
 def write_file():
-​
+
     global battery_level
     global battery_level_last_time
     global battery_charging
     global battery_charging_last_time
     global update_file
-​
+
     with open(BATTERY_FILE_PATH, "w") as f:
         f.write(
                 f'{battery_charging}{battery_level}\n'
             )
-​
+
 def low_battery_sender(queue: Queue):
     battery_level = 100
     chargin_state = False
@@ -100,15 +100,15 @@ def low_battery_sender(queue: Queue):
     except Exception as e:
         print(f"Error with CAN configuration: {e}")
         exit(1)
-​
+
 def main():
-​
+
     global battery_level
     global battery_level_last_time
     global battery_charging
     global battery_charging_last_time
     global update_file
-​
+
     write_file()
     time.sleep(5.0)
     queue = Queue(maxsize=1)
@@ -153,7 +153,7 @@ def main():
                     if (time.time() - battery_level_last_time) >= MESSAGE_TIMEOUT:
                         battery_level = DEFAULT_BATTERY_LEVEL_STR
                         update_file = True
-​
+
                 if battery_charging not in \
                         [DEFAULT_BATTERY_CHARGING_STR, INITIAL_BATTERY_CHARGING_STR]:
                     if (time.time() - battery_charging_last_time) >= MESSAGE_TIMEOUT:
@@ -167,7 +167,7 @@ def main():
     finally:
         bus.shutdown()
         print("End")
-​
-​
+
+
 if __name__ == "__main__":
     main()
