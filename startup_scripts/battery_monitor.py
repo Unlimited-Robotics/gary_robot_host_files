@@ -3,6 +3,8 @@
 import can
 import time
 import os
+import logging
+from logging.handlers import SysLogHandler
 from queue import Queue, Empty, Full
 from threading import Thread
 
@@ -37,6 +39,15 @@ INITIAL_BATTERY_CHARGING_STR = '!'
 DEFAULT_BATTERY_LEVEL_STR = '---'
 DEFAULT_BATTERY_CHARGING_STR = '-'
 
+# Create a logger
+logger = logging.getLogger(__file__)
+logger.setLevel(logging.DEBUG)
+syslog_handler = SysLogHandler(address='/dev/log')
+syslog_handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
+syslog_handler.setFormatter(formatter)
+logger.addHandler(syslog_handler)
+
 
 # global variabled
 battery_level = INITIAL_BATTERY_LEVEL_STR
@@ -53,6 +64,10 @@ def write_file():
     global battery_charging_last_time
     global update_file
 
+    logger.info(
+        f'The current battery status is:
+                {battery_charging}{battery_level}'
+    )
     with open(BATTERY_FILE_PATH, "w") as f:
         f.write(
                 f'{battery_charging}{battery_level}\n'
