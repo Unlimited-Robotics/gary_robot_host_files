@@ -102,7 +102,10 @@ def low_battery_sender(queue: Queue):
                     data=[0x53, 0x4C, 0x0F, speed, 0x01, 80, 0x20, 0x00], 
                     is_extended_id=False
                 )
-                with can.Bus(interface='socketcan', channel=GARY_LEDS_CAN_INTERFACE) as bus:
+                with can.Bus(
+                    interface='socketcan',
+                    channel=GARY_LEDS_CAN_INTERFACE
+                ) as bus:
                     try:
                         bus.send(head_leds_msg)
                         bus.send(chest_leds_msg)
@@ -110,7 +113,10 @@ def low_battery_sender(queue: Queue):
                     except can.CanError:
                         print("Messages NOT sent")
                 
-                os.system(f'paplay --device {UR_SOUND_OUT} {os.getcwd()}/data/very_low_battery.wav')
+                os.system(
+                    f'paplay --device {UR_SOUND_OUT} '
+                    f'{os.getcwd()}/data/very_low_battery.wav'
+                )
             time.sleep(2)
     except Exception as e:
         print(f"Error with CAN configuration: {e}")
@@ -136,7 +142,10 @@ def main():
     battery_level = 0
     chargin_state = False
     try:
-        with can.interface.Bus(channel=GARY_SENSORS_CAN_INTERFACE,bustype='socketcan') as bus: 
+        with can.interface.Bus(
+            channel=GARY_SENSORS_CAN_INTERFACE,
+            bustype='socketcan'
+        ) as bus: 
             while True:
                 message = bus.recv(timeout=None)
                 if message is not None:
@@ -159,7 +168,10 @@ def main():
                             battery_charging_last_time = time.time()
                             update_file = True
                         try:
-                            queue.put((int(battery_level), chargin_state), block=False)
+                            queue.put(
+                                item=(int(battery_level), chargin_state), 
+                                block=False
+                            )
                         except Full:
                             pass
                 
