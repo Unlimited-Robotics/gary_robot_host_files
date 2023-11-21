@@ -65,8 +65,7 @@ def write_file():
     global update_file
 
     logger.info(
-        f'The current battery status is:
-                {battery_charging}{battery_level}'
+        f'The current battery status is:{battery_charging}{battery_level}'
     )
     with open(BATTERY_FILE_PATH, "w") as f:
         f.write(
