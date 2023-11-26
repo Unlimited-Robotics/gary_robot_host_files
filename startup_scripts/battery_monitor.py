@@ -72,6 +72,25 @@ def write_file():
                 f'{battery_charging}{battery_level}\n'
             )
 
+def ping_registers():
+    with can.interface.Bus(
+            channel=GARY_SENSORS_CAN_INTERFACE,
+            bustype='socketcan'
+        ) as bus: 
+            while True:
+                # Msg to get all sensors value
+                ping_msg = can.Message(
+                    arbitration_id=0x103, 
+                    data=[0x53,0x53,0x03,0x01,0x54,0x00,0x00,0x00], 
+                    is_extended_id=False
+                )
+                try:
+                    bus.send(ping_msg)
+                except can.CanError:
+                    print("Ping NOT sent")
+                time.sleep(2)
+
+
 def low_battery_sender(queue: Queue):
     battery_level = 100
     chargin_state = False
@@ -138,6 +157,11 @@ def main():
         args=(queue, ), 
         daemon=True)
     low_battery_sender_thread.start()
+
+    ping_thread = Thread(
+        target=ping_registers,
+        daemon=True)
+    ping_thread.start()
     battery_level = 0
     chargin_state = False
     try:
