@@ -9,7 +9,7 @@ from queue import Queue, Empty, Full
 from threading import Thread
 
 def retrieve_env_variable(name: str):
-    ENV_FILE_PATH = '/opt/raya_os/env'
+    ENV_FILE_PATH = r'/opt/raya_os/env'
     env_file = open(ENV_FILE_PATH,'r').read()
     if env_file.find(name)==-1:
         raise Exception(f'Environment variable {name} not found in {ENV_FILE_PATH}')
@@ -23,6 +23,8 @@ def retrieve_env_variable(name: str):
 GARY_SENSORS_CAN_INTERFACE = retrieve_env_variable("GARY_SENSORS_CAN_INTERFACE")
 
 BATTERY_CAN_ID = int(retrieve_env_variable("GARY_SENSORS_MC_ID"),base=16)
+GARY_LEDS_TOPMC_CANID = int(retrieve_env_variable("GARY_LEDS_TOPMC_CANID"),base=16)
+GARY_LEDS_BOTMC_CANID = int(retrieve_env_variable("GARY_LEDS_BOTMC_CANID"),base=16)
 
 GARY_LEDS_CAN_INTERFACE = retrieve_env_variable("GARY_LEDS_CAN_INTERFACE")
 
@@ -31,7 +33,7 @@ UR_SOUND_OUT = retrieve_env_variable("UR_SOUND_OUT")
 BATTERY_LOW_LEVEL = 30
 BATTERY_CRITICAL_LEVEL = 10
 
-BATTERY_FILE_PATH = '/tmp/battery_level'
+BATTERY_FILE_PATH = r'/tmp/battery_level'
 MESSAGE_TIMEOUT = 180 # 180 seconds (3 minutes)
 
 INITIAL_BATTERY_LEVEL_STR = '!!!'
@@ -88,7 +90,7 @@ def ping_registers():
                     bus.send(ping_msg)
                 except can.CanError:
                     print("Ping NOT sent")
-                time.sleep(2)
+                time.sleep(20)
 
 
 def low_battery_sender(queue: Queue):
@@ -106,17 +108,17 @@ def low_battery_sender(queue: Queue):
             if battery_level < BATTERY_LOW_LEVEL and not chargin_state:
                 # Send LEDs animation
                 head_leds_msg = can.Message(
-                    arbitration_id=0x103, 
+                    arbitration_id=GARY_LEDS_TOPMC_CANID, 
                     data=[0x48, 0x4C, 0x05, speed, 0x01, 80, 0x20, 0x00], 
                     is_extended_id=False
                 )
                 chest_leds_msg = can.Message(
-                    arbitration_id=0x103, 
+                    arbitration_id=GARY_LEDS_TOPMC_CANID, 
                     data=[0x43, 0x4C, 0x02, speed, 0x01, 80, 0x20, 0x00], 
                     is_extended_id=False
                 )
                 skirt_leds_msg = can.Message(
-                    arbitration_id=0x104, 
+                    arbitration_id=GARY_LEDS_BOTMC_CANID, 
                     data=[0x53, 0x4C, 0x0F, speed, 0x01, 80, 0x20, 0x00], 
                     is_extended_id=False
                 )
@@ -129,10 +131,11 @@ def low_battery_sender(queue: Queue):
                         bus.send(chest_leds_msg)
                         bus.send(skirt_leds_msg)
                     except can.CanError:
-                        print("Messages NOT sent")
+                        # sudo ifconfig can2 txqueuelen 1000
+                        print("LED's animations NOT sent")
                 
                 os.system(
-                    f'paplay --device {UR_SOUND_OUT} '
+                    f'sudo -u \'#1000\' XDG_RUNTIME_DIR=/run/user/1000 paplay --device {UR_SOUND_OUT} '
                     f'{os.getcwd()}/data/very_low_battery.wav'
                 )
             time.sleep(2)
@@ -161,7 +164,9 @@ def main():
     ping_thread = Thread(
         target=ping_registers,
         daemon=True)
-    ping_thread.start()
+    enable_ping = False
+    request_uC_version = True
+    can_version = ""
     battery_level = 0
     chargin_state = False
     try:
@@ -171,15 +176,34 @@ def main():
         ) as bus: 
             while True:
                 message = bus.recv(timeout=None)
+                if request_uC_version:
+                    try:
+                        bus.send(can.Message(
+                            arbitration_id=0x103, 
+                            data=[0x53, 0x53, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00], 
+                            is_extended_id=False
+                        ))
+                    except can.CanError:
+                        print("Request uC Version NOT sent")
                 if message is not None:
                     if message.arbitration_id==BATTERY_CAN_ID:
+
+                        # Enable ping every x seconds to get battery data from uC
+                        if message.data[0]==0x00 and not enable_ping:
+                            can_version = str(message.data[3:], 'utf-8')[2:]
+                            if can_version[0]>='2':
+                                if not ping_thread.is_alive():
+                                    ping_thread.start()
+                                enable_ping = True
+                                print(f"Start ping, uC Version: {can_version}")
+                            request_uC_version = False
+
                         # Message from microcontroller
                         if message.data[0]==0x22:
                             # Battery level message
                             battery_level = str(int(message.data[7])).zfill(3)
                             battery_level_last_time = time.time()
-                            update_file = True
-                        
+                            update_file = True             
                         if message.data[0]==0x29:
                             # Battery charging status message
                             if message.data[7] & 0x40:
@@ -210,7 +234,6 @@ def main():
                         battery_charging = DEFAULT_BATTERY_CHARGING_STR
                         update_file = True
                             
-                
                 if update_file:
                     write_file()
                     update_file = False
