@@ -57,6 +57,7 @@ battery_level_last_time = time.time()
 battery_charging = INITIAL_BATTERY_CHARGING_STR
 battery_charging_last_time = time.time()
 update_file = False
+read_first_time = False
 
 def write_file():
 
@@ -94,6 +95,7 @@ def ping_registers():
 
 
 def low_battery_sender(queue: Queue):
+    global read_first_time
     battery_level = 100
     chargin_state = False
     try:
@@ -105,7 +107,7 @@ def low_battery_sender(queue: Queue):
             except Empty:
                 pass
             speed = 0x16 if battery_level <= BATTERY_CRITICAL_LEVEL else 0x32
-            if battery_level < BATTERY_LOW_LEVEL and not chargin_state:
+            if battery_level < BATTERY_LOW_LEVEL and not chargin_state and read_first_time:
                 # Send LEDs animation
                 head_leds_msg = can.Message(
                     arbitration_id=GARY_LEDS_TOPMC_CANID, 
@@ -133,7 +135,6 @@ def low_battery_sender(queue: Queue):
                     except can.CanError:
                         # sudo ifconfig can2 txqueuelen 1000
                         print("LED's animations NOT sent")
-                
                 os.system(
                     f'sudo -u \'#1000\' XDG_RUNTIME_DIR=/run/user/1000 paplay --device {UR_SOUND_OUT} '
                     f'{os.getcwd()}/data/very_low_battery.wav'
@@ -150,6 +151,7 @@ def main():
     global battery_charging
     global battery_charging_last_time
     global update_file
+    global read_first_time
 
     write_file()
     time.sleep(5.0)
@@ -203,7 +205,8 @@ def main():
                             # Battery level message
                             battery_level = str(int(message.data[7])).zfill(3)
                             battery_level_last_time = time.time()
-                            update_file = True             
+                            update_file = True           
+                            read_first_time =True  
                         if message.data[0]==0x29:
                             # Battery charging status message
                             if message.data[7] & 0x40:
