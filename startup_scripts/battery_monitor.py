@@ -86,11 +86,14 @@ def pingValues():
             time.sleep(BATTERY_REGISTERS_PING_TIME)
 
 def getBatteryStatus():
-    for dump in execute(['/usr/bin/candump',GARY_SENSORS_CAN_INTERFACE]):
-        if dump[19:21]=="22":
-            yield int(dump[-3:],base=16)
-        if dump[19:21]=="29":
-            yield int(dump[-3:],base=16)&0x40 == 0 # True if charging
+    try:
+        for dump in execute(['/usr/bin/candump',GARY_SENSORS_CAN_INTERFACE]):
+            if dump[19:21]=="22":
+                yield int(dump[-3:],base=16)
+            if dump[19:21]=="29":
+                yield int(dump[-3:],base=16)&0x40 == 0 # True if charging
+    except:
+        logger.error(f"CAN Bus failed to start: {GARY_SENSORS_CAN_INTERFACE}!")
 
 def sendDischarging(level: int):
     speed = 0x16 if level <= BATTERY_CRITICAL_LEVEL else 0x32
