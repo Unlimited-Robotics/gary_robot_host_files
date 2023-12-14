@@ -1,15 +1,16 @@
 #!/bin/python3
-
-import can
-import time
+# Important!!!, install iterators: sudo python3 -m pip install iterators
 import os
+import sys
+import time
 import logging
-from logging.handlers import SysLogHandler
-from queue import Queue, Empty, Full
+import subprocess
 from threading import Thread
+from iterators import TimeoutIterator
+from logging.handlers import RotatingFileHandler
 
 def retrieve_env_variable(name: str):
-    ENV_FILE_PATH = r'/opt/raya_os/env'
+    ENV_FILE_PATH = '/opt/raya_os/env'
     env_file = open(ENV_FILE_PATH,'r').read()
     if env_file.find(name)==-1:
         raise Exception(f'Environment variable {name} not found in {ENV_FILE_PATH}')
@@ -20,229 +21,133 @@ def retrieve_env_variable(name: str):
     search_enter=rest.find('\n')
     return rest[:search_enter]
 
-GARY_SENSORS_CAN_INTERFACE = retrieve_env_variable("GARY_SENSORS_CAN_INTERFACE")
+def execute(cmd):
+    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
+    for stdout_line in iter(popen.stdout.readline, ""):
+        yield stdout_line 
+    popen.stdout.close()
+    return_code = popen.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, cmd)
 
+# Retrieve values from env robot
+GARY_SENSORS_CAN_INTERFACE = retrieve_env_variable("GARY_SENSORS_CAN_INTERFACE")
 BATTERY_CAN_ID = int(retrieve_env_variable("GARY_SENSORS_MC_ID"),base=16)
 GARY_LEDS_TOPMC_CANID = int(retrieve_env_variable("GARY_LEDS_TOPMC_CANID"),base=16)
 GARY_LEDS_BOTMC_CANID = int(retrieve_env_variable("GARY_LEDS_BOTMC_CANID"),base=16)
-
 GARY_LEDS_CAN_INTERFACE = retrieve_env_variable("GARY_LEDS_CAN_INTERFACE")
-
 UR_SOUND_OUT = retrieve_env_variable("UR_SOUND_OUT")
 
+# Script configurations
 BATTERY_LOW_LEVEL = 30
 BATTERY_CRITICAL_LEVEL = 10
-
-BATTERY_FILE_PATH = r'/tmp/battery_level'
+BATTERY_FILE_PATH = '/tmp/battery_level'
+BATTERY_REGISTERS_PING_TIME = 10
 MESSAGE_TIMEOUT = 180 # 180 seconds (3 minutes)
+SOUND_ALERT_PATH=os.getcwd()+'/data/very_low_battery.wav'
 
 INITIAL_BATTERY_LEVEL_STR = '!!!'
 INITIAL_BATTERY_CHARGING_STR = '!'
 DEFAULT_BATTERY_LEVEL_STR = '---'
 DEFAULT_BATTERY_CHARGING_STR = '-'
 
-# Create a logger
-logger = logging.getLogger(__file__)
-logger.setLevel(logging.DEBUG)
-syslog_handler = SysLogHandler(address='/dev/log')
-syslog_handler.setLevel(logging.DEBUG)
-formatter = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-syslog_handler.setFormatter(formatter)
-logger.addHandler(syslog_handler)
+class Logger():
+    def __init__(self, name):
+        # Create a logger
+        file_handler = RotatingFileHandler(
+            filename=f'/tmp/{name}.log', 
+            mode='a', 
+            maxBytes=1024, 
+            backupCount=1
+        )
+        stdout_handler = logging.StreamHandler(stream=sys.stdout)
+        handlers = [file_handler, stdout_handler]
 
+        logging.basicConfig(
+            level=logging.DEBUG, 
+            format='[%(asctime)s] %(name)s - %(levelname)s - %(message)s',
+            handlers=handlers
+        )
+        self.logger = logging.getLogger(name)
+    
+    def get_logger(self):
+        return self.logger
 
-# global variabled
-battery_level = INITIAL_BATTERY_LEVEL_STR
-battery_level_last_time = time.time()
-battery_charging = INITIAL_BATTERY_CHARGING_STR
-battery_charging_last_time = time.time()
-update_file = False
-read_first_time = False
+logger = Logger('battery_monitor').get_logger()
 
-def write_file():
-
-    global battery_level
-    global battery_level_last_time
-    global battery_charging
-    global battery_charging_last_time
-    global update_file
-
-    logger.info(
-        f'The current battery status is:{battery_charging}{battery_level}'
-    )
-    with open(BATTERY_FILE_PATH, "w") as f:
-        f.write(
-                f'{battery_charging}{battery_level}\n'
-            )
-
-def ping_registers():
-    with can.interface.Bus(
-            channel=GARY_SENSORS_CAN_INTERFACE,
-            bustype='socketcan'
-        ) as bus: 
-            while True:
-                # Msg to get all sensors value
-                ping_msg = can.Message(
-                    arbitration_id=0x103, 
-                    data=[0x53,0x53,0x03,0x01,0x54,0x00,0x00,0x00], 
-                    is_extended_id=False
-                )
-                try:
-                    bus.send(ping_msg)
-                except can.CanError:
-                    print("Ping NOT sent")
-                time.sleep(20)
-
-
-def low_battery_sender(queue: Queue):
-    global read_first_time
-    battery_level = 100
-    chargin_state = False
-    try:
+def pingValues():
+    while True:
+        # Ping registers from 0x22 to 0x29
+        cmd = f'/usr/bin/cansend {GARY_SENSORS_CAN_INTERFACE} 103#5353032229000000'
         while True:
-            try:
-                data = queue.get(block=False)
-                if data is not None:
-                    battery_level, chargin_state = data
-            except Empty:
-                pass
-            speed = 0x16 if battery_level <= BATTERY_CRITICAL_LEVEL else 0x32
-            if battery_level < BATTERY_LOW_LEVEL and not chargin_state and read_first_time:
-                # Send LEDs animation
-                head_leds_msg = can.Message(
-                    arbitration_id=GARY_LEDS_TOPMC_CANID, 
-                    data=[0x48, 0x4C, 0x05, speed, 0x01, 80, 0x20, 0x00], 
-                    is_extended_id=False
-                )
-                chest_leds_msg = can.Message(
-                    arbitration_id=GARY_LEDS_TOPMC_CANID, 
-                    data=[0x43, 0x4C, 0x02, speed, 0x01, 80, 0x20, 0x00], 
-                    is_extended_id=False
-                )
-                skirt_leds_msg = can.Message(
-                    arbitration_id=GARY_LEDS_BOTMC_CANID, 
-                    data=[0x53, 0x4C, 0x0F, speed, 0x01, 80, 0x20, 0x00], 
-                    is_extended_id=False
-                )
-                with can.Bus(
-                    interface='socketcan',
-                    channel=GARY_LEDS_CAN_INTERFACE
-                ) as bus:
-                    try:
-                        bus.send(head_leds_msg)
-                        bus.send(chest_leds_msg)
-                        bus.send(skirt_leds_msg)
-                    except can.CanError:
-                        # sudo ifconfig can2 txqueuelen 1000
-                        print("LED's animations NOT sent")
-                os.system(
-                    f'sudo -u \'#1000\' XDG_RUNTIME_DIR=/run/user/1000 paplay --device {UR_SOUND_OUT} '
-                    f'{os.getcwd()}/data/very_low_battery.wav'
-                )
-            time.sleep(2)
-    except Exception as e:
-        print(f"Error with CAN configuration: {e}")
-        exit(1)
+            ec = os.system(cmd)
+            if ec != 0:
+                logger.error(f"Can't send data to {GARY_SENSORS_CAN_INTERFACE}!")
+            time.sleep(BATTERY_REGISTERS_PING_TIME)
+
+def getBatteryStatus():
+    try:
+        for dump in execute(['/usr/bin/candump',GARY_SENSORS_CAN_INTERFACE]):
+            if dump[19:21]=="22":
+                yield int(dump[-3:],base=16)
+            if dump[19:21]=="29":
+                yield int(dump[-3:],base=16)&0x40 == 0 # True if charging
+    except:
+        logger.error(f"CAN Bus failed to start: {GARY_SENSORS_CAN_INTERFACE}!")
+
+def sendDischarging(level: int):
+    speed = 0x16 if level <= BATTERY_CRITICAL_LEVEL else 0x32
+    head_leds_cmd = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE}  {GARY_LEDS_TOPMC_CANID}#484C05{speed}01802000'
+    chest_leds_msg = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {GARY_LEDS_TOPMC_CANID}#434C02{speed}01802000'
+    skirt_leds_msg = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {GARY_LEDS_BOTMC_CANID}#534C0F{speed}01802000'
+    logger.info("Sending alert to leds")
+    ec = os.system(head_leds_cmd)
+    if ec != 0: logger.error(f"Can't send data to {GARY_LEDS_CAN_INTERFACE}!")
+    ec = os.system(chest_leds_msg)
+    if ec != 0: logger.error(f"Can't send data to {GARY_LEDS_CAN_INTERFACE}!")
+    ec = os.system(skirt_leds_msg)
+    if ec != 0: logger.error(f"Can't send data to {GARY_LEDS_CAN_INTERFACE}!")
+    logger.info("Playing low battery sound")
+    os.system(
+            f'sudo -u \'#1000\' XDG_RUNTIME_DIR=/run/user/1000 paplay --device {UR_SOUND_OUT} '
+            f'{SOUND_ALERT_PATH}'
+        )
+    if ec != 0: logger.error(f"Can't play file!")
+
 
 def main():
+    logger.info(f'Parameters:')
+    logger.info(f'*   File path: {BATTERY_FILE_PATH}')
+    logger.info(f'*   Message timeout: {BATTERY_FILE_PATH} seconds')
+    logger.info(f'*   CAN Interface: {GARY_SENSORS_CAN_INTERFACE}')
+    logger.info(f'*   Battery CAN ID (Sensors): {BATTERY_CAN_ID} ({hex(BATTERY_CAN_ID)})')
+    logger.info(f'*   Sound alert file path: {SOUND_ALERT_PATH} ({"Exist" if os.path.isfile(SOUND_ALERT_PATH) else "Missing file"})')
 
-    global battery_level
-    global battery_level_last_time
-    global battery_charging
-    global battery_charging_last_time
-    global update_file
-    global read_first_time
+    level = None
+    state = None
+    os.system(f'echo "!!!!" > {BATTERY_FILE_PATH} ')
 
-    write_file()
-    time.sleep(5.0)
-    queue = Queue(maxsize=1)
-    queue.put(None)
-    low_battery_sender_thread = Thread(
-        target=low_battery_sender, 
-        args=(queue, ), 
-        daemon=True)
-    low_battery_sender_thread.start()
+    ping_thread = Thread(target=pingValues)
+    ping_thread.setDaemon(True)
+    ping_thread.start()
 
-    ping_thread = Thread(
-        target=ping_registers,
-        daemon=True)
-    enable_ping = False
-    request_uC_version = True
-    can_version = ""
-    battery_level = 0
-    chargin_state = False
-    try:
-        with can.interface.Bus(
-            channel=GARY_SENSORS_CAN_INTERFACE,
-            bustype='socketcan'
-        ) as bus: 
-            while True:
-                message = bus.recv(timeout=None)
-                if request_uC_version:
-                    try:
-                        bus.send(can.Message(
-                            arbitration_id=0x103, 
-                            data=[0x53, 0x53, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00], 
-                            is_extended_id=False
-                        ))
-                    except can.CanError:
-                        print("Request uC Version NOT sent")
-                if message is not None:
-                    if message.arbitration_id==BATTERY_CAN_ID:
+    it = TimeoutIterator(getBatteryStatus(), timeout=MESSAGE_TIMEOUT)
+    for i in it:
+        if i == it.get_sentinel():
+            level = None
+            state = None
+            os.system(f'echo "----" > {BATTERY_FILE_PATH} ')
+        else:
+            if isinstance(i, bool):
+                state = 'C' if i else 'D'
+            else:
+                level = i
+        logger.info(f'Level: {level}, Status: {state}')
+        if level!=None and state!=None:
+            os.system(f'echo {state}{str(level).zfill(3)} > {BATTERY_FILE_PATH}')
+            if level < BATTERY_LOW_LEVEL and state == 'D':
+                sendDischarging(level)
 
-                        # Enable ping every x seconds to get battery data from uC
-                        if message.data[0]==0x00 and not enable_ping:
-                            can_version = str(message.data[3:], 'utf-8')[2:]
-                            if can_version[0]>='2':
-                                if not ping_thread.is_alive():
-                                    ping_thread.start()
-                                enable_ping = True
-                                print(f"Start ping, uC Version: {can_version}")
-                            request_uC_version = False
-
-                        # Message from microcontroller
-                        if message.data[0]==0x22:
-                            # Battery level message
-                            battery_level = str(int(message.data[7])).zfill(3)
-                            battery_level_last_time = time.time()
-                            update_file = True           
-                            read_first_time =True  
-                        if message.data[0]==0x29:
-                            # Battery charging status message
-                            if message.data[7] & 0x40:
-                                battery_charging = 'D'
-                                chargin_state = False
-                            else:
-                                battery_charging = 'C'
-                                chargin_state = True
-                            battery_charging_last_time = time.time()
-                            update_file = True
-                        try:
-                            queue.put(
-                                item=(int(battery_level), chargin_state), 
-                                block=False
-                            )
-                        except Full:
-                            pass
-                
-                if battery_level not in \
-                        [DEFAULT_BATTERY_LEVEL_STR, INITIAL_BATTERY_LEVEL_STR]:
-                    if (time.time() - battery_level_last_time) >= MESSAGE_TIMEOUT:
-                        battery_level = DEFAULT_BATTERY_LEVEL_STR
-                        update_file = True
-
-                if battery_charging not in \
-                        [DEFAULT_BATTERY_CHARGING_STR, INITIAL_BATTERY_CHARGING_STR]:
-                    if (time.time() - battery_charging_last_time) >= MESSAGE_TIMEOUT:
-                        battery_charging = DEFAULT_BATTERY_CHARGING_STR
-                        update_file = True
-                            
-                if update_file:
-                    write_file()
-                    update_file = False
-    finally:
-        bus.shutdown()
-        print("End")
 
 
 if __name__ == "__main__":
