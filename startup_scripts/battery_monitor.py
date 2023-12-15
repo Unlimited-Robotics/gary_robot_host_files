@@ -7,7 +7,7 @@ import logging
 import subprocess
 from threading import Thread
 from iterators import TimeoutIterator
-from logging.handlers import RotatingFileHandler
+from logging.handlers import RotatingFileHandler, SysLogHandler
 
 def retrieve_env_variable(name: str):
     ENV_FILE_PATH = '/opt/raya_os/env'
@@ -45,6 +45,7 @@ BATTERY_FILE_PATH = '/tmp/battery_level'
 BATTERY_REGISTERS_PING_TIME = 10
 MESSAGE_TIMEOUT = 180 # 180 seconds (3 minutes)
 SOUND_ALERT_PATH=os.getcwd()+'/data/very_low_battery.wav'
+WAIT_START_TIME = 5
 
 INITIAL_BATTERY_LEVEL_STR = '!!!'
 INITIAL_BATTERY_CHARGING_STR = '!'
@@ -53,15 +54,18 @@ DEFAULT_BATTERY_CHARGING_STR = '-'
 
 class Logger():
     def __init__(self, name):
+        log_filename = f'/startup_scripts/log/{name}.log'
+        os.makedirs(os.path.dirname(log_filename), exist_ok=True)
         # Create a logger
         file_handler = RotatingFileHandler(
-            filename=f'/tmp/{name}.log', 
+            filename= log_filename, 
             mode='a', 
             maxBytes=1024, 
             backupCount=1
         )
+        syslog_handler = SysLogHandler(address='/dev/log')
         stdout_handler = logging.StreamHandler(stream=sys.stdout)
-        handlers = [file_handler, stdout_handler]
+        handlers = [file_handler, stdout_handler, syslog_handler]
 
         logging.basicConfig(
             level=logging.DEBUG, 
@@ -73,7 +77,9 @@ class Logger():
     def get_logger(self):
         return self.logger
 
+
 logger = Logger('battery_monitor').get_logger()
+
 
 def pingValues():
     while True:
@@ -95,6 +101,7 @@ def getBatteryStatus():
     except:
         logger.error(f"CAN Bus failed to start: {GARY_SENSORS_CAN_INTERFACE}!")
 
+
 def sendDischarging(level: int):
     speed = 0x16 if level <= BATTERY_CRITICAL_LEVEL else 0x32
     head_leds_cmd = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE}  {GARY_LEDS_TOPMC_CANID}#484C05{speed}01802000'
@@ -115,7 +122,12 @@ def sendDischarging(level: int):
     if ec != 0: logger.error(f"Can't play file!")
 
 
+def write_to_file(level, state):
+    os.system(f'echo "{state}{level}" > {BATTERY_FILE_PATH} ')
+
+
 def main():
+    time.sleep(WAIT_START_TIME)
     logger.info(f'Parameters:')
     logger.info(f'*   File path: {BATTERY_FILE_PATH}')
     logger.info(f'*   Message timeout: {BATTERY_FILE_PATH} seconds')
@@ -125,7 +137,7 @@ def main():
 
     level = None
     state = None
-    os.system(f'echo "!!!!" > {BATTERY_FILE_PATH} ')
+    write_to_file(level=INITIAL_BATTERY_LEVEL_STR, state=INITIAL_BATTERY_CHARGING_STR)
 
     ping_thread = Thread(target=pingValues)
     ping_thread.setDaemon(True)
@@ -136,7 +148,7 @@ def main():
         if i == it.get_sentinel():
             level = None
             state = None
-            os.system(f'echo "----" > {BATTERY_FILE_PATH} ')
+            write_to_file(level=DEFAULT_BATTERY_LEVEL_STR, state=DEFAULT_BATTERY_CHARGING_STR)
         else:
             if isinstance(i, bool):
                 state = 'C' if i else 'D'
@@ -144,7 +156,7 @@ def main():
                 level = i
         logger.info(f'Level: {level}, Status: {state}')
         if level!=None and state!=None:
-            os.system(f'echo {state}{str(level).zfill(3)} > {BATTERY_FILE_PATH}')
+            write_to_file(level=str(level).zfill(3), state=state)
             if level < BATTERY_LOW_LEVEL and state == 'D':
                 sendDischarging(level)
 

@@ -22,9 +22,16 @@ function _readPercentageFromFile() {
         let file = Gio.File.new_for_path(PERCENTAGEFILEPATH);
         let [, content] = file.load_contents(null);
         let read = content.toString().trim();
+        let read_number = read.substring(1);
 
-        const letter = read.substring(0, 1);
-        const number = parseInt(read.substring(1));
+        let letter = read.substring(0, 1);
+        let number = parseInt(read_number);
+        if (isNaN(number)) {
+            number = read_number;
+        }
+        if (read_number.length == 0) {
+            number = '---';
+        }
         return [letter, number];
     } catch (e) {
         logError(e, 'Error reading percentage file');
