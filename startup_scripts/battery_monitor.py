@@ -1,5 +1,7 @@
 #!/bin/python3
-# Important!!!, install iterators: sudo python3 -m pip install iterators
+# Important!!!
+# install iterators: sudo -H python3 -m pip install iterators
+# install can-utils: sudo apt install can-utils
 import os
 import sys
 import time
@@ -127,13 +129,33 @@ def write_to_file(level, state):
 
 
 def main():
-    time.sleep(WAIT_START_TIME)
     logger.info(f'Parameters:')
     logger.info(f'*   File path: {BATTERY_FILE_PATH}')
     logger.info(f'*   Message timeout: {BATTERY_FILE_PATH} seconds')
     logger.info(f'*   CAN Interface: {GARY_SENSORS_CAN_INTERFACE}')
     logger.info(f'*   Battery CAN ID (Sensors): {BATTERY_CAN_ID} ({hex(BATTERY_CAN_ID)})')
     logger.info(f'*   Sound alert file path: {SOUND_ALERT_PATH} ({"Exist" if os.path.isfile(SOUND_ALERT_PATH) else "Missing file"})')
+    logger.info(f'Waiting start time')
+    time.sleep(WAIT_START_TIME)
+    logger.info(f'Wait for can sensors interface')
+    attemps = 1
+    while True:
+        try:
+            logger.info(f'Attemp: {attemps}')
+            attemps+=1
+            if attemps>20:
+                logger.error(f'CAN interface is down...')
+                attemps=1
+            ps = subprocess.Popen(('ip','link','show'), stdout=subprocess.PIPE)
+            output = subprocess.check_output(('grep', '-o', '-P', ': can.{0,1}'), stdin=ps.stdout)
+            ps.wait()
+            can_list = output.decode("utf-8").replace('\n','').replace(':','').split(" ")[1:]
+            if GARY_SENSORS_CAN_INTERFACE in can_list:
+                break
+        except subprocess.CalledProcessError:
+            time.sleep(5)
+
+    logger.info(f'Sensors CAN interface is up')
 
     level = None
     state = None
