@@ -46,7 +46,7 @@ BATTERY_CRITICAL_LEVEL = 10
 BATTERY_FILE_PATH = '/tmp/battery_level'
 BATTERY_REGISTERS_PING_TIME = 10
 MESSAGE_TIMEOUT = 180 # 180 seconds (3 minutes)
-SOUND_ALERT_PATH=os.getcwd()+'/data/very_low_battery.wav'
+SOUND_ALERT_PATH='/startup_scripts/data/very_low_battery.wav'
 WAIT_START_TIME = 5
 
 INITIAL_BATTERY_LEVEL_STR = '!!!'
