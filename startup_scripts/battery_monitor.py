@@ -144,7 +144,7 @@ def main():
             logger.info(f'Attemp: {attemps}')
             attemps+=1
             if attemps>20:
-                logger.error(f'CAN interface is down...')
+                logger.error(f'CAN interface {GARY_SENSORS_CAN_INTERFACE} is down...')
                 attemps=1
             ps = subprocess.Popen(('ip','link','show'), stdout=subprocess.PIPE)
             output = subprocess.check_output(('grep', '-o', '-P', ': can.{0,1}'), stdin=ps.stdout)
@@ -152,6 +152,7 @@ def main():
             can_list = output.decode("utf-8").replace('\n','').replace(':','').split(" ")[1:]
             if GARY_SENSORS_CAN_INTERFACE in can_list:
                 break
+            time.sleep(1)
         except subprocess.CalledProcessError:
             time.sleep(5)
 
