@@ -10,7 +10,7 @@ if [ -f "${ENV_FILE_PATH}" ]; then
     if [[ -z "${ROBOT_ID}" ]]; then
         echo -e "${YELLOW}WARNING:${NC} Variable ROBOTS_ID does not exist in file ${ENV_FILE_PATH}"
     else
-        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${ROBOT_ID}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+        PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@${ROBOT_ID}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\n \$ '
     fi
 else
     echo -e "${YELLOW}WARNING:${NC} Environment file ${ENV_FILE_PATH} does not exist"
