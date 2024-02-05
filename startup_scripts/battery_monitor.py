@@ -34,7 +34,7 @@ def execute(cmd):
 
 # Retrieve values from env robot
 GARY_SENSORS_CAN_INTERFACE = retrieve_env_variable("GARY_SENSORS_CAN_INTERFACE")
-BATTERY_CAN_ID = int(retrieve_env_variable("GARY_SENSORS_PC_CAN_ID"),base=16)
+BATTERY_CAN_ID = int(retrieve_env_variable("GARY_SENSORS_MC_ID"),base=16)
 GARY_LEDS_TOPMC_CANID = int(retrieve_env_variable("GARY_LEDS_TOPMC_CANID"),base=16)
 GARY_LEDS_BOTMC_CANID = int(retrieve_env_variable("GARY_LEDS_BOTMC_CANID"),base=16)
 GARY_LEDS_CAN_INTERFACE = retrieve_env_variable("GARY_LEDS_CAN_INTERFACE")
@@ -106,9 +106,9 @@ def getBatteryStatus():
 
 def sendDischarging(level: int):
     speed = 0x16 if level <= BATTERY_CRITICAL_LEVEL else 0x32
-    head_leds_cmd = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE}  {GARY_LEDS_TOPMC_CANID}#484C05{speed}01802000'
-    chest_leds_msg = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {GARY_LEDS_TOPMC_CANID}#434C02{speed}01802000'
-    skirt_leds_msg = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {GARY_LEDS_BOTMC_CANID}#534C0F{speed}01802000'
+    head_leds_cmd  = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {hex(GARY_LEDS_TOPMC_CANID)[2:]}#484C05{speed}03802000'
+    chest_leds_msg = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {hex(GARY_LEDS_TOPMC_CANID)[2:]}#434C02{speed}03802000'
+    skirt_leds_msg = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {hex(GARY_LEDS_BOTMC_CANID)[2:]}#534C0F{speed}03802000'
     logger.info("Sending alert to leds")
     ec = os.system(head_leds_cmd)
     if ec != 0: logger.error(f"Can't send data to {GARY_LEDS_CAN_INTERFACE}!")
@@ -152,7 +152,6 @@ def main():
             can_list = output.decode("utf-8").replace('\n','').replace(':','').split(" ")[1:]
             if GARY_SENSORS_CAN_INTERFACE in can_list:
                 break
-            time.sleep(1)
         except subprocess.CalledProcessError:
             time.sleep(5)
 
