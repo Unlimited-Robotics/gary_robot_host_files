@@ -47,6 +47,8 @@ BATTERY_FILE_PATH = '/tmp/battery_level'
 BATTERY_REGISTERS_PING_TIME = 10
 MESSAGE_TIMEOUT = 180 # 180 seconds (3 minutes)
 SOUND_ALERT_PATH='/startup_scripts/data/very_low_battery.wav'
+SOUND_ALERT_MS=30000
+PLAY_ALERT=False
 WAIT_START_TIME = 5
 
 INITIAL_BATTERY_LEVEL_STR = '!!!'
@@ -116,19 +118,25 @@ def sendDischarging(level: int):
     if ec != 0: logger.error(f"Can't send data to {GARY_LEDS_CAN_INTERFACE}!")
     ec = os.system(skirt_leds_msg)
     if ec != 0: logger.error(f"Can't send data to {GARY_LEDS_CAN_INTERFACE}!")
-    logger.info("Playing low battery sound")
-    os.system(
-            f'sudo -u \'#1000\' XDG_RUNTIME_DIR=/run/user/1000 paplay --device {UR_SOUND_OUT} '
-            f'{SOUND_ALERT_PATH}'
-        )
-    if ec != 0: logger.error(f"Can't play file!")
 
+def playBatteryAlert():
+    global PLAY_ALERT
+    while True:
+        if PLAY_ALERT:
+            logger.info("Playing low battery sound")
+            ec = os.system(
+                    f'sudo -u \'#1000\' XDG_RUNTIME_DIR=/run/user/1000 paplay --device {UR_SOUND_OUT} '
+                    f'{SOUND_ALERT_PATH}'
+                )
+            if ec != 0: logger.error(f"Can't play file!")
+        time.sleep(SOUND_ALERT_MS/1000)
 
 def write_to_file(level, state):
     os.system(f'echo "{state}{level}" > {BATTERY_FILE_PATH} ')
 
 
 def main():
+    global PLAY_ALERT
     logger.info(f'Parameters:')
     logger.info(f'*   File path: {BATTERY_FILE_PATH}')
     logger.info(f'*   Message timeout: {BATTERY_FILE_PATH} seconds')
@@ -165,6 +173,10 @@ def main():
     ping_thread.setDaemon(True)
     ping_thread.start()
 
+    play_alert_thread = Thread(target=playBatteryAlert)
+    play_alert_thread.setDaemon(True)
+    play_alert_thread.start()
+
     it = TimeoutIterator(getBatteryStatus(), timeout=MESSAGE_TIMEOUT)
     for i in it:
         if i == it.get_sentinel():
@@ -181,6 +193,9 @@ def main():
             write_to_file(level=str(level).zfill(3), state=state)
             if level < BATTERY_LOW_LEVEL and state == 'D':
                 sendDischarging(level)
+                PLAY_ALERT=True
+            else:
+                PLAY_ALERT=False
 
 
 
