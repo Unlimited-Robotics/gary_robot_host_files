@@ -11,6 +11,7 @@ from threading import Thread
 from iterators import TimeoutIterator
 from logging.handlers import RotatingFileHandler, SysLogHandler
 
+
 def retrieve_env_variable(name: str):
     ENV_FILE_PATH = '/opt/raya_os/env'
     env_file = open(ENV_FILE_PATH,'r').read()
@@ -23,6 +24,7 @@ def retrieve_env_variable(name: str):
     search_enter=rest.find('\n')
     return rest[:search_enter]
 
+
 def execute(cmd):
     popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True)
     for stdout_line in iter(popen.stdout.readline, ""):
@@ -31,6 +33,7 @@ def execute(cmd):
     return_code = popen.wait()
     if return_code:
         raise subprocess.CalledProcessError(return_code, cmd)
+
 
 # Retrieve values from env robot
 GARY_SENSORS_CAN_INTERFACE = retrieve_env_variable("GARY_SENSORS_CAN_INTERFACE")
@@ -81,7 +84,6 @@ class Logger():
     def get_logger(self):
         return self.logger
 
-
 logger = Logger('battery_monitor').get_logger()
 
 
@@ -94,6 +96,7 @@ def pingValues():
             if ec != 0:
                 logger.error(f"Can't send data to {GARY_SENSORS_CAN_INTERFACE}!")
             time.sleep(BATTERY_REGISTERS_PING_TIME)
+
 
 def getBatteryStatus():
     try:
@@ -117,6 +120,7 @@ def sendDischarging(level: int):
     ec = os.system(head_leds_cmd)
     if ec != 0: logger.error(f"Can't send data to {GARY_LEDS_CAN_INTERFACE}!")
 
+
 def playBatteryAlert():
     global PLAY_ALERT
     while True:
@@ -128,6 +132,7 @@ def playBatteryAlert():
                 )
             if ec != 0: logger.error(f"Can't play file!")
         time.sleep(SOUND_ALERT_MS/1000)
+
 
 def write_to_file(level, state):
     os.system(f'echo "{state}{level}" > {BATTERY_FILE_PATH} ')
@@ -194,7 +199,6 @@ def main():
                 PLAY_ALERT=True
             else:
                 PLAY_ALERT=False
-
 
 
 if __name__ == "__main__":
