@@ -107,16 +107,14 @@ def getBatteryStatus():
 
 
 def sendDischarging(level: int):
-    speed = 0x16 if level <= BATTERY_CRITICAL_LEVEL else 0x32
-    head_leds_cmd  = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {hex(GARY_LEDS_TOPMC_CANID)[2:]}#484C05{speed}03802000'
-    chest_leds_msg = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {hex(GARY_LEDS_TOPMC_CANID)[2:]}#434C02{speed}03802000'
-    skirt_leds_msg = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {hex(GARY_LEDS_BOTMC_CANID)[2:]}#534C0F{speed}03802000'
+    speed = 0xFF
+    color = 0x802000 if level <= BATTERY_CRITICAL_LEVEL else 0x7E8000
+    
+    head_leds_cmd  = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {hex(GARY_LEDS_TOPMC_CANID)[2:]}#484C19{speed}03{color}'
+    # chest_leds_msg = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {hex(GARY_LEDS_TOPMC_CANID)[2:]}#434C02{speed}03{color}'
+    # skirt_leds_msg = f'/usr/bin/cansend {GARY_LEDS_CAN_INTERFACE} {hex(GARY_LEDS_BOTMC_CANID)[2:]}#534C0F{speed}03{color}'
     logger.info("Sending alert to leds")
     ec = os.system(head_leds_cmd)
-    if ec != 0: logger.error(f"Can't send data to {GARY_LEDS_CAN_INTERFACE}!")
-    ec = os.system(chest_leds_msg)
-    if ec != 0: logger.error(f"Can't send data to {GARY_LEDS_CAN_INTERFACE}!")
-    ec = os.system(skirt_leds_msg)
     if ec != 0: logger.error(f"Can't send data to {GARY_LEDS_CAN_INTERFACE}!")
 
 def playBatteryAlert():
