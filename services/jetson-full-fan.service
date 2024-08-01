@@ -1,0 +1,9 @@
+[Unit]
+Description=Set fan at max
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "/usr/bin/jetson_clocks --fan"
+
+[Install]
+WantedBy=multi-user.target
