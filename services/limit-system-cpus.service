@@ -4,6 +4,3 @@ Description=Limit CPUs that system processes can use
 [Service]
 Type=oneshot
 ExecStart=/bin/bash /startup_scripts/limit-system-cpus.sh
-
-[Install]
-WantedBy=multi-user.target
