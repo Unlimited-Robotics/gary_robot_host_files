@@ -122,16 +122,17 @@ def sendDischarging(level: int):
 
 
 def playBatteryAlert():
-    global PLAY_ALERT
-    while True:
-        if PLAY_ALERT:
-            logger.info("Playing low battery sound")
-            ec = os.system(
-                    f'sudo -u \'#1000\' XDG_RUNTIME_DIR=/run/user/1000 paplay --device {UR_SOUND_OUT} '
-                    f'{SOUND_ALERT_PATH}'
-                )
-            if ec != 0: logger.error(f"Can't play file!")
-        time.sleep(SOUND_ALERT_MS/1000)
+    return
+    # global PLAY_ALERT
+    # while True:
+    #     if PLAY_ALERT:
+    #         logger.info("Playing low battery sound")
+    #         ec = os.system(
+    #                 f'sudo -u \'#1000\' XDG_RUNTIME_DIR=/run/user/1000 paplay --device {UR_SOUND_OUT} '
+    #                 f'{SOUND_ALERT_PATH}'
+    #             )
+    #         if ec != 0: logger.error(f"Can't play file!")
+    #     time.sleep(SOUND_ALERT_MS/1000)
 
 
 def write_to_file(level, state):
