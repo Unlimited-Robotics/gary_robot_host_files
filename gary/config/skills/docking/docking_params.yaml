@@ -1,0 +1,11 @@
+/**:
+  ros__parameters:
+    # Map location: in-front of docking station
+    nav_to_pose.map: 'Main__Basement'
+    # To Update
+    nav_to_pose.x: -2.0536444187164307
+    nav_to_pose.y: -0.8745290040969849
+    nav_to_pose.yaw: -1.5626579        
+    nav_to_pose.xy_tolerance: 0.15
+    nav_to_pose.yaw_tolerance: 7.0
+    nav_to_pose.in_map_coordinates: true

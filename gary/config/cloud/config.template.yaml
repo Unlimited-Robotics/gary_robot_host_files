@@ -1,0 +1,5 @@
+/**/mqtt_client:
+  ros__parameters:
+    broker:
+      host: XXXX
+      port: XXXX

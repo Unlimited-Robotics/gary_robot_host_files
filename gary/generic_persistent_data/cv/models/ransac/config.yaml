@@ -1,0 +1,3 @@
+model: segmentator
+type: plane
+py_class: Ransac

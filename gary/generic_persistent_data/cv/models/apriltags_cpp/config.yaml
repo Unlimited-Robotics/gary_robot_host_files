@@ -1,0 +1,3 @@
+model: detector
+type: tag
+cpp_class: Apriltags 

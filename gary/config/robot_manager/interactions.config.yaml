@@ -1,0 +1,262 @@
+BRINGING_UP:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/bringing_up.json'
+      # periodic: true
+      # period: 2
+      # not_present_subtitle_override: true # optional
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/startup.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+ERROR_COMPONENT:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/error_component.json'
+      periodic: true
+      alert_components_list_subtitle_override: true # optional
+      period: 5
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/error_component.mp3'
+    leds:
+      group: "head"
+      color: "red"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+EMERGENCY_INTERNAL:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/emergency_internal.json'
+      periodic: true
+      emergency_internal_subtitle_override: true # optional
+      period: 5
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/emergency_internal.mp3'
+    leds:
+      group: "head"
+      color: "red"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+EMERGENCY_BUTTON:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/emergency_button.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/emergency2.mp3'
+    leds:
+      group: "head"
+      color: "red"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+LOCALIZING_STATIC:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/localizing_static.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/localization.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      animation: "LOADING_BAR"
+
+LOCALIZING_ROTATING:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/localizing_rotating.json'
+
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      animation: "LOADING_BAR"
+
+LOCALIZING_TELEOP:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/localizing_teleop.json'
+    sound:
+      predefined: "attention"
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      animation: "LOADING_BAR"
+
+GOING_TO_CHARGE:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/going_to_charge.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/going_to_charge.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+LOW_BATTERY:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/low_battery.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/going_to_charge.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+FULLY_CHARGED:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/fully_charged.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/charged.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+ERROR_CHARGING:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/error_charging.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/error_charging.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+CHARGING:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/charging.json'
+      periodic: true
+      battery_level_subtitle_override: true # optional
+      period: 5
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/charging.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+CHARGED:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/charged.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/charged.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+GO_HOME:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/go_home.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/go_home.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+IDLE:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/idle.json'
+      periodic: false
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/all-set.mp3'
+      periodic: false
+      period: 5
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+UNDOCKING:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/undocking.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/undocking.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+RUNNING_TASK_PRE_CHARGING:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/running_task_pre_charging.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/running_task_pre_charging.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"
+
+ABORTING_TASK:
+  during_state:
+    chest:
+      file: '${ROBOT_CONFIG_PATH}/robot_manager/chest/aborting_task.json'
+    sound:
+      custom: '${ROBOT_CONFIG_PATH}/robot_manager/sounds/aborting_task.mp3'
+    leds:
+      group: "head"
+      color: "blue"
+      repetitions: 10
+      speed: 1
+      execution_control: 0
+      animation: "wave"

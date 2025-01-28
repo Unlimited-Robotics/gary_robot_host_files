@@ -1,0 +1,23 @@
+{
+	"component": "DisplayScreen",
+	"goal_data":
+	{
+		"title": "Undocking",
+		"subtitle": "",
+		"show_loader": false,
+		"theme": "DARK",
+		"custom_style": {
+			"title": {},
+			"subtitle": {},
+			"background": {},
+			"language_modal": {
+				"modal_title": {},
+				"component": {},
+				"component_flag": {},
+				"component_text": {}
+			}
+		},
+		"back_button": ""
+	}
+}
+

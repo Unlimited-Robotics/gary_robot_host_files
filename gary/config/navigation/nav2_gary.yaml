@@ -1,0 +1,5 @@
+/gary/nav/nav2/controller_server:
+  ros__parameters:
+    strict_checker:
+      xy_goal_tolerance: 0.15
+

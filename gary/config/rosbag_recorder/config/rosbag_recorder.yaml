@@ -1,0 +1,78 @@
+/**/rosbag_recorder:
+  ros__parameters:
+    tick_period: 0.5
+    topic_timeout_period: 5.0
+    mcap_writer_file: "${ROBOT_CONFIG_PATH}/rosbag_recorder/config/mcap_writer_options.yml"
+    qos_profile: "${ROBOT_CONFIG_PATH}/rosbag_recorder/config/record.config.yaml"
+    recording_topics:
+
+      # General
+      - /rosout
+      - /tf
+      - /tf_static
+      - /raya/monitor/stats
+      - /raya/teleoperation/task/status
+
+      # Sensors
+      - /gary/lidar/scan
+      - /gary/lidar/back/scan
+      - /gary/lidar/back/scan_corrected
+      - /gary/lidar/front/scan
+      - /gary/lidar/front/scan_corrected
+      - /gary/odom/odom
+      - /gary/sensors/imu
+      - /gary/wheels/cmd_vel
+      - /gary/wheels/odom
+      - /gary/sensors/srf_3
+      - /gary/sensors/srf_6
+
+      # Navigation
+      - /gary/nav/nav2/global_costmap/costmap
+      - /gary/nav/nav2/global_costmap/published_footprint
+      - /gary/nav/nav2/goal_pose
+      - /gary/nav/nav2/update_goal_pose
+      - /gary/nav/nav2/local_costmap/costmap
+      - /gary/nav/nav2/local_costmap/published_footprint
+      - /gary/nav/nav2/lookahead_point
+      - /gary/nav/nav2/plan
+      - /gary/nav/published_goal
+      - /gary/nav/rtabmap/map
+      - /gary/nav/nav2/map
+      - /gary/nav/localization_status
+      - /gary/nav/force_localization
+      - /gary/nav/rtabmap/localization_pose
+
+      # Status
+      - /gary/cameras/back/status
+      - /gary/cameras/back_ip/status
+      - /gary/cameras/front_ip/status
+      - /gary/cameras/nav_bottom/status
+      - /gary/cameras/nav_top/status
+      - /gary/cart/cart_controller/status
+      - /gary/cv/status
+      - /gary/leds/leds_engine/status
+      - /gary/lidar/status
+      - /gary/nav/status
+      - /gary/robot_manager/status
+      - /gary/sensors/status
+      - /gary/skill/approach/status
+      - /gary/skill/attach_to_cart/status
+      - /gary/sound/mic0/status
+      - /gary/sound/speaker/status
+      - /gary/wheels/hardware/status
+      - /raya/chest_web/status
+      - /raya/fleet/robot/status
+      - /raya/fleet/status
+      - /raya/monitor/robot_manager/status
+      - /raya/monitor/status
+      - /raya/teleoperation/status
+      - /raya/elevator/status
+
+      # ELEVATOR
+      - /raya/elevator/mqtt/elevator_status
+      - /raya/elevator/mqtt/go_to_floor/feedback
+      - /raya/elevator/mqtt/go_to_floor/request
+      - /raya/elevator/mqtt/go_to_floor/response
+      - /raya/elevator/mqtt/request_elevator/feedback
+      - /raya/elevator/mqtt/request_elevator/request
+      - /raya/elevator/mqtt/request_elevator/response

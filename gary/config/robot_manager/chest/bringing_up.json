@@ -1,0 +1,27 @@
+{
+	"component": "Animation",
+	"goal_data":
+	{
+		"title": "Setting up system",
+		"subtitle": "",
+		"show_loader": false,
+		"theme": "WHITE",
+		"type": "LOTTIE",
+		"lottie_path": "${ROBOT_CONFIG_PATH}/robot_manager/lotties/loader.json",
+		"custom_style": {
+			"title": {
+				"font-size": 75
+			},
+			"subtitle": {},
+			"background": {},
+			"language_modal": {
+				"modal_title": {},
+				"component": {},
+				"component_flag": {},
+				"component_text": {}
+			}
+		},
+		"back_button": ""
+	}
+ }
+ 

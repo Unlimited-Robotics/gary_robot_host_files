@@ -1,0 +1,4 @@
+model: detector
+type: face
+py_class: YunetFace
+model_file: face_detection_yunet_2023mar.onnx

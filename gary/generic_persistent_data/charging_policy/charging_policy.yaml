@@ -1,0 +1,48 @@
+charging_method: predefined_times
+critical_battery: 15
+low_battery: 22
+predefined_times:
+  time_preferences:
+    - time_periods:
+        - from: 2024-12-03T04:00:00.000Z
+          to: 2024-12-03T06:00:00.000Z
+      week_day: 0
+    - time_periods:
+        - from: 2024-12-03T04:00:00.000Z
+          to: 2024-12-03T06:00:00.000Z
+      week_day: 1
+    - time_periods:
+        - from: 2024-12-03T04:00:00.000Z
+          to: 2024-12-03T06:00:00.000Z
+      week_day: 2
+    - time_periods:
+        - from: 2024-12-03T04:00:00.000Z
+          to: 2024-12-03T06:00:00.000Z
+        - from: 2024-12-03T13:06:00.000Z
+          to: 2024-12-03T14:06:00.000Z
+        - from: 2024-12-03T09:09:00.000Z
+          to: 2024-12-03T10:09:00.000Z
+      week_day: 3
+    - time_periods:
+        - from: 2024-12-03T04:00:00.000Z
+          to: 2024-12-03T06:00:00.000Z
+        - from: 2024-12-03T13:06:00.000Z
+          to: 2024-12-03T14:06:00.000Z
+      week_day: 4
+    - time_periods:
+        - from: 2024-12-03T04:00:00.000Z
+          to: 2024-12-03T06:00:00.000Z
+      week_day: 5
+    - time_periods:
+        - from: 2024-12-03T04:00:00.000Z
+          to: 2024-12-03T06:00:00.000Z
+      week_day: 6
+  week_days:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+sufficient_battery: 48

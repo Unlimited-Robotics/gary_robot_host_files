@@ -1,0 +1,13 @@
+/**:
+  ros__parameters:
+    dependencies: 
+      - ''
+      # - /gary/arms/hardware
+      # - /gary/wheels/hardware
+      # - /gary/sensors/sensors_engine
+      # - /gary/teleopration/teleoperation_engine
+    
+    ## write here your parameters.
+    rate_limiter_percentage_per_iteration: 0.05 # [%]
+    rate_limiter_speed_before_cutoff: 0.01     # [Rad/s]
+

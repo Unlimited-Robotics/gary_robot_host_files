@@ -1,0 +1,617 @@
+/raya/monitor/stats:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/teleoperation/task/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/lidar/scan:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/lidar/back/scan:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/lidar/back/scan_corrected:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/lidar/front/scan:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/lidar/front/scan_corrected:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+  
+/gary/sensors/srf_3:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/sensors/srf_6:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+# /gary/nav/nav2/global_costmap/costmap:
+#   history: keep_last
+#   depth: 1
+#   reliability: best_effort
+#   durability: volatile
+#   deadline: {sec: 0, nsec: 0}
+#   lifespan: {sec: 0, nsec: 0}
+#   liveliness: system_default
+#   liveliness_lease_duration: {sec: 0, nsec: 0}
+#   avoid_ros_namespace_conventions: false
+
+/gary/nav/nav2/global_costmap/published_footprint:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/nav/nav2/goal_pose:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/nav/nav2/update_goal_pose:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/nav/nav2/local_costmap/costmap:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/nav/nav2/local_costmap/published_footprint:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/nav/nav2/lookahead_point:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/nav/nav2/plan:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/nav/published_goal:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/odom/odom:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/sensors/imu:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/wheels/cmd_vel:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/wheels/odom:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+# /rosout:
+#   history: keep_last
+#   depth: 1
+#   reliability: best_effort
+#   durability: volatile
+#   deadline: {sec: 0, nsec: 0}
+#   lifespan: {sec: 0, nsec: 0}
+#   liveliness: system_default
+#   liveliness_lease_duration: {sec: 0, nsec: 0}
+#   avoid_ros_namespace_conventions: false
+
+/gary/nav/localization_status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/nav/force_localization:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/nav/rtabmap/localization_pose:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/cameras/back/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/cameras/back_ip/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/cameras/front_ip/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/cameras/nav_bottom/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/cameras/nav_top/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/cart/cart_controller/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/cv/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/leds/leds_engine/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/lidar/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/nav/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/robot_manager/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/sensors/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/skill/approach/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/skill/attach_to_cart/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/sound/mic0/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/sound/speaker/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/gary/wheels/hardware/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/chest_web/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/fleet/robot/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/fleet/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/monitor/robot_manager/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/monitor/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/teleoperation/status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+# ELEVATOR
+
+/raya/elevator/mqtt/elevator_status:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/elevator/mqtt/go_to_floor/feedback:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/elevator/mqtt/go_to_floor/request:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/elevator/mqtt/go_to_floor/response:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/elevator/mqtt/request_elevator/feedback:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/elevator/mqtt/request_elevator/request:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false
+
+/raya/elevator/mqtt/request_elevator/response:
+  history: keep_last
+  depth: 1
+  reliability: best_effort
+  durability: volatile
+  deadline: {sec: 0, nsec: 0}
+  lifespan: {sec: 0, nsec: 0}
+  liveliness: system_default
+  liveliness_lease_duration: {sec: 0, nsec: 0}
+  avoid_ros_namespace_conventions: false

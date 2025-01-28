@@ -1,0 +1,8 @@
+noChunkCRC: false
+noChunking: false
+noMessageIndex: false
+noSummary: false
+chunkSize: 512000
+compression: "Zstd"
+compressionLevel: "Slowest"
+forceCompression: false

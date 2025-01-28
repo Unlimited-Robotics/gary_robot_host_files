@@ -1,0 +1,21 @@
+{
+  "component": "DisplayScreen",
+  "goal_data":
+  {
+    "title": "",
+    "subtitle": "it might take couple minutes",
+    "show_loader": true,
+    "theme": "DARK",
+    "custom_style": {
+      "title": {},
+      "subtitle": {},
+      "background": {},
+      "language_modal": {
+        "modal_title": {},
+        "component": {},
+        "component_flag": {},
+        "component_text": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+/gary/navigation/engine:
+  ros__parameters:
+    navigation:
+      old_rtabmap: true
+      initial_map:  "Main__Basement"
+      republish_apriltags_detections:  false
+      optimize_max_error:  3.0
+      planner_with_cart:  "LongFootprint"
+      planner_without_cart:  "GridBased"
+    motion:
+      omni_motion:  false
+      speed_limits.max_x:  0.5
+      speed_limits.max_y:  0.3
+      speed_limits.max_w:  0.5

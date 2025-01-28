@@ -1,0 +1,14 @@
+/**/robot_manager:
+  ros__parameters:
+    tick_period: 0.5
+    localization_timeout: 10.0
+    bringing_up_wait_period: 120.0
+    sounds_volume : 100
+    skip_localization : false
+    manual_localization : true
+    manager_ui_priority: 3
+    idle_ui_priority: 1
+    rot_angle: 45.0
+    rot_speed: 0.3
+    rot_times: 8
+    running_task_timeout: 5

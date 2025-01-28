@@ -1,0 +1,63 @@
+/**:
+  ros__parameters:
+
+    group_name: "cart_gripper"
+    can_port: "can0"
+    auto_recovery: false
+    open_position: 280.0
+    position_tolerance: 20.0
+    goal_tolerance: 0.001
+    execution_velocity: 30.0
+    max_current: 250.0
+    lpf_alpha: 0.5
+    vel_kp: 6.0
+    pos_kp: 1.0
+    velocity_tolerance: 0.001
+    time_to_avoid: 1.0
+    
+
+
+    cart_gripper:
+      joint_names:
+        - cart_joint
+
+      cart_joint:
+        config:
+          id: 0x146
+          type: "revolute"
+          sign: 1
+          gear_ratio: 10
+          convert_factor: 1.0
+          torque_constant: 0.25
+          backlash: 0.0
+          calibration:
+            timeout: 60.0
+            velocity: -9.42
+            offset: 180.0
+            stopping_torque: 300.0
+            done_position: 0.0
+            time_offset: 0.0
+            start_offset: 0.0
+            method: "velocity" # 0: Torque, 1: Velocity 2: Position
+
+        limits:
+          max_position: 310.0
+          min_position: -3.14
+          max_velocity: 30.0
+          min_velocity: -30.0
+          max_current: 700.0
+          min_current: -700.0
+
+        control_parameters:
+          pid:
+            kp: 0.1
+            ki: 0.0
+            kd: 0.0
+            windup_limit: 0.0
+
+        tolerance:
+          goal_tolerance: 0.001
+
+
+
+

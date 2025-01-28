@@ -1,0 +1,5 @@
+model: estimator
+type: hand_pose
+py_class: MpHandPose  
+model_file: handpose_estimation_mediapipe_2023feb.onnx
+labels_file: palm_detection_mediapipe_2023feb.onnx

@@ -1,0 +1,25 @@
+services:
+  config_manager:
+    command: sleep infinity
+    env_file:
+    - /opt/ur/gary/config/env
+    environment:
+    - IDCOMPONENT=config_manager
+    - ROBOT_NAME=gary
+    - ROS_DOMAIN_ID=0
+    - DETACHED_MODE=true
+    healthcheck:
+      disable: true
+    image: raya.tool.config_manager.config_manager:jetsonorin.4.21.beta
+    network_mode: host
+    pid: host
+    privileged: true
+    restart: unless-stopped
+    runtime: nvidia
+    volumes:
+    - /opt/ur/gary/config:/robot/config
+    - /opt/ur/gary/generic_persistent_data:/robot/generic_persistent_data
+    - /opt/ur/gary/component_persistent_data/config_manager:/robot/component_persistent_data
+    - /run/udev:/run/udev:ro
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+    - /opt/ur:/opt/ur

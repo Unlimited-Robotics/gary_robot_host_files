@@ -1,0 +1,9 @@
+/**:
+  ros__parameters:
+    interp_angle_tolerance: 0.01
+    output_range_max: 10.0
+    front_lidar:
+      constants_fix_slope: [0.935, 0.05]
+    back_lidar:
+      constants_fix_slope: [1.02, -0.08]
+

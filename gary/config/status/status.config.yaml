@@ -1,0 +1,39 @@
+/**:
+  ros__parameters:
+
+    active_components:
+
+      - peripherals.lidar_engine:/gary/lidar
+      - peripherals.sensors_engine:/gary/sensors
+      - peripherals.leds:/gary/leds/leds_engine
+
+      - media.sound_engine.mic0:/gary/sound/mic0
+      - media.sound_engine.speaker:/gary/sound/speaker
+
+      - cameras.back:/gary/cameras/back
+      # - cameras.back_ip:/gary/cameras/back_ip
+      # - cameras.front_ip:/gary/cameras/front_ip
+      - cameras.nav_bottom:/gary/cameras/nav_bottom
+      - cameras.nav_top:/gary/cameras/nav_top
+
+      - nav.navigation_engine:/gary/nav
+
+      - cv.cv_manager:/gary/cv
+
+      - ui.chest_web:/raya/chest_web
+      
+      - control.cart:/gary/cart/controller
+      - control.wheels:/gary/wheels/hardware
+      
+      - skills.approach:/gary/skill/approach
+      - skills.attach:/gary/skill/attach_to_cart
+      # - skills.docking:/gary/skill/dock
+      
+      - cloud.fleet:/raya/fleet
+      - cloud.monitor:/raya/monitor
+      - cloud.elevator:/raya/elevator
+      - cloud.teleoperation:/raya/teleoperation
+    
+    emergency_button_source: serial
+    
+    serial_port_source: /dev/ttyTHS0 

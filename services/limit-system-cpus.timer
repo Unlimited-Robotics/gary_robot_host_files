@@ -1,9 +1,0 @@
-[Unit]
-Description=Limit CPUs that system processes can use
-
-[Timer]
-OnBootSec=1min
-OnUnitActiveSec=10min
-
-[Install]
-WantedBy=timers.target

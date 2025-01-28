@@ -1,0 +1,15 @@
+/**/sound_engine:
+  ros__parameters:
+    default_output_device: "alsa_output.platform-sound.analog-stereo"
+    default_input_device: "alsa_input.platform-sound.analog-stereo"
+    speaker_pipeline_desc : "audioconvert ! volume name=vol ! pulsesink name=spk_out"
+    predefined_sound_path : "/robot/component_static_data/predefined_sounds"
+    ile_sound_path: "/"
+    ihe_sound_path: "/"
+    ee_sound_path: "/"
+    ile_sound_period: 9
+    ihe_sound_period: 6
+    ee_sound_period: 3
+    mic_caps: "audio/x-raw, format=S16LE, channels=1, rate=8000"
+    mic_pipeline_desc_list:
+    - "pulsesrc name=mic_in ! audioconvert ! audiobuffersplit output-buffer-duration=1/10 ! appsink name=mic_appsink"

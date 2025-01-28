@@ -1,9 +1,0 @@
-{
-    "name": "Gary Battery Extension",
-    "description": "Displays the battery level of gary",
-    "version": "1.0",
-    "shell-version": ["3.36"],
-    "uuid": "gary-battery-extension@ur",
-    "url": "https://github.com/yourusername/random-battery-extension",
-    "stylesheet": "styles.css"
-}

@@ -1,0 +1,22 @@
+/**/sensors_engine:
+  ros__parameters:
+    can_interface: "can0"
+    can_id: 0x105
+    can_timeout_ms: 1000
+    period_publish_sensors: 100
+    period_publish_relay: 100
+    period_publish_button_states: 100
+    period_publish_imu_monitor: 10000
+    period_uc_init_cmds: 5000
+    sfr_fov: 0.0872665
+    sfr_min_range: 0.03
+    sfr_max_range: 5.00
+    sensors_list_path: "/robot/config/sensors/config.sensor_list.yaml"
+    sensors_init_can_msgs_path: "/robot/config/sensors/config.initial_can_msgs.yaml"
+    max_pitch_threshold: 0.261799
+    max_roll_threshold: 0.261799
+    zero_pos_pitch: -3.10
+    zero_pos_roll: 0.00
+    bottom_uc_id: 0x104
+    relay_command_timeout_ms: 20000
+    relay_can_frame: [0x43, 0x52, 0xFF, 0x00, 0x00, 0x00, 0x00, 0x00]

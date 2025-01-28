@@ -1,0 +1,292 @@
+sensors_list:
+  - sensor_name: "version_name"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "accelerometer_x"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "accelerometer_y"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "accelerometer_z"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "gyro_x"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "gyro_y"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "gyro_z"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "nicla_temp"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "gas_value"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "rotation_x"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "rotation_y"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "rotation_z"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "rotation_w"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "orientation_pitch"
+    active: true
+    timeout_ms: 1000
+  - sensor_name: "orientation_roll"
+    active: true
+    timeout_ms: 1000
+  - sensor_name: "orientation_heading"
+    active: true
+    timeout_ms: 1000
+  - sensor_name: "temp_1"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "temp_2"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "temp_3"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "temp_4"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "srf_1"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "srf_2"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "srf_3"
+    active: true
+    timeout_ms: 1000
+  - sensor_name: "srf_4"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "srf_5"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "srf_6"
+    active: true
+    timeout_ms: 1000
+  - sensor_name: "emergency_button"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "chest_button"
+    active: true
+    timeout_ms: 1000
+  - sensor_name: "remainingcapacityalarm"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "remainingtimealarm"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "temperature"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "voltage"
+    active: true
+    timeout_ms: 30000
+  - sensor_name: "current"
+    active: true
+    timeout_ms: 30000
+  - sensor_name: "averagecurrent"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "absolutestateofcharge"
+    active: true
+    timeout_ms: 30000
+  - sensor_name: "remainingcapacity"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "runtimetoempty"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "averagetimetoempty"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "averagetimetofull"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "chargingcurrent"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "chargingvoltage"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "batterystatus"
+    active: true
+    timeout_ms: 30000
+  - sensor_name: "cyclecount"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "serialnumber"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage12"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage11"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage10"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage09"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage08"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage07"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage06"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage05"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage04"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage03"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage02"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "cellvoltage01"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "stateofhealth"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "safetyalert"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "safetystatus"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "pfalert"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "pfstatus"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "operationstatus"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "chargingstatus"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_1"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_2"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_3"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_4"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_5"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_6"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_7"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_8"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_9"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_10"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_11"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_12"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_13"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_14"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_15"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock6_16"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock7_1"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "lifetimedatablock7_2"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "button_states"
+    active: true
+    timeout_ms: 1000
+  - sensor_name: "overtilt_warning"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "distance_states"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "srf_7"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "srf_8"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "relay_state"
+    active: true
+    timeout_ms: 1000
+  - sensor_name: "bot_motor_power_state"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "top_motor_power_state"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "barometer"
+    active: true
+    timeout_ms: 1000
+  - sensor_name: "top_board_version"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "bottom_board_version"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "nicla_board_version"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "nicla_good_message_time_debug"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "nicla_any_message_time_debug"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "top_leds_eof"
+    active: false
+    timeout_ms: 1000
+  - sensor_name: "bottom_leds_eof"
+    active: false
+    timeout_ms: 1000

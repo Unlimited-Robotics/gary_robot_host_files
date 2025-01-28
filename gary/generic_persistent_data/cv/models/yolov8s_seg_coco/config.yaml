@@ -1,0 +1,4 @@
+model: segmentator
+type: object
+py_class: Yolov8Seg
+model_file: yolov8s-seg.pt

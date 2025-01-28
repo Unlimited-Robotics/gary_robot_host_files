@@ -1,0 +1,58 @@
+$(var namespace)controller_manager:
+  ros__parameters:
+    update_rate: 10  # Hz
+
+    gary_wheels_controller:
+      type: diff_drive_controller/DiffDriveController
+
+
+$(var namespace):
+  gary_wheels_controller:
+    ros__parameters:
+      left_wheel_names: [ "wheel_FL_joint","wheel_RL_joint" ]
+      right_wheel_names: [ "wheel_FR_joint","wheel_RR_joint" ]
+
+      # wheel_separation: 0.496
+      # slip_factor ~= 1.33
+      wheel_separation: 0.65968
+      wheels_per_side: 2
+      # wheel_radius: 0.1016
+      wheel_radius: 0.1067
+
+      wheel_separation_multiplier: 1.0
+      left_wheel_radius_multiplier: 1.0132
+      right_wheel_radius_multiplier: 1.0
+
+      publish_rate: 50.0
+      odom_frame_id: odom_wheels # TODO what frame for odometry reference?
+      base_frame_id: base_link # TODO what is the base frame refrence?
+      pose_covariance_diagonal: [ 0.001, 0.001, 0.001, 0.001, 0.001, 0.01 ]
+      twist_covariance_diagonal: [ 0.001, 0.001, 0.001, 0.001, 0.001, 0.01 ]
+
+      open_loop: false
+      enable_odom_tf: false
+
+      cmd_vel_timeout: 1.0
+      #publish_limited_velocity: true
+      use_stamped_vel: false
+      #velocity_rolling_window_size: 10
+
+      # Velocity and acceleration limits
+      # Whenever a min_* is unspecified, default to -max_*
+      linear.x.has_velocity_limits: true
+      linear.x.has_acceleration_limits: true
+      linear.x.has_jerk_limits: true
+      linear.x.max_velocity: 1.0
+      linear.x.min_velocity: -1.0
+      linear.x.max_acceleration: 0.8
+      linear.x.max_jerk: 5.0
+
+      angular.z.has_velocity_limits: true
+      angular.z.has_acceleration_limits: true
+      angular.z.has_jerk_limits: false
+      angular.z.max_velocity: 1.0
+      angular.z.min_velocity: -1.0
+      angular.z.max_acceleration: 1.0
+      angular.z.min_acceleration: -1.0
+      angular.z.max_jerk: 0.0
+      angular.z.min_jerk: 0.0

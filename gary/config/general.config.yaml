@@ -1,0 +1,13 @@
+/**:
+  ros__parameters:
+    raya:
+      status:
+        period: 0.5
+        timeout: 2.0
+    gary:
+      cameras:
+        - nav_top
+        - nav_bottom
+        - back
+        - front_ip
+        - back_ip

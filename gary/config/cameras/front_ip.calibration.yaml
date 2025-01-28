@@ -1,0 +1,26 @@
+image_width: 1920
+image_height: 1080
+camera_name: front_ip
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [1116.08177,    0.     , 1031.53481,
+            0.     , 1114.01917,  740.22733,
+            0.     ,    0.     ,    1.     ]
+distortion_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [0.012941, -0.002782, 0.001292, -0.001583, 0.000000]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1., 0., 0.,
+         0., 1., 0.,
+         0., 0., 1.]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [1131.17993,    0.     , 1025.82095,    0.     ,
+            0.     , 1130.0929 ,  743.03167,    0.     ,
+            0.     ,    0.     ,    1.     ,    0.     ]

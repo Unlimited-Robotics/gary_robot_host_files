@@ -1,0 +1,4 @@
+/**/raya_logs:
+  ros__parameters:
+    task_timeout: 5.0
+    logs_path: "/robot/generic_persistent_data/logs"

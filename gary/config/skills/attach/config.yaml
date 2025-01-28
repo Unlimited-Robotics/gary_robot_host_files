@@ -1,0 +1,40 @@
+/**:
+  ros__parameters:
+    dependencies:
+      - sensors.sensors_engine:/gary/sensors
+      - hardware.wheels:/gary/wheels/hardware
+      - control_cart:/gary/cart/controller
+
+
+    config:
+      distance_between_sensors: 0.235 # meters
+      cmd_open_pose: 1.0
+      cmd_close_pose: 0.0
+      cmd_open_velocity: 0.3
+      cmd_close_velocity: 0.3
+      log_state: true # NEW print additional logs or not in the terminal
+   
+
+    control:
+      rotation_kp: 0.3
+      linear_kp: 0.2
+      filter_weight: 0.1
+
+    limits:
+      max_cart_distance: 1.0 # meters
+      max_angle: 0.35 # radians
+      max_srf_distance: 1.5 # meters
+      max_rotating_velocity: 0.1 # radians per second
+      max_linear_velocity: 0.1 # meters per second
+
+    tolerance:
+      attached_tolerance: 0.04 # meters
+      verifying_tolerance: 0.1 # meters
+      rotation_tolerance: 0.035 # radians
+      attached_gripper_pose: 0.86 # normalized
+
+    timeouts:
+      cart_execution: 40.0
+      cart_verify_attach: 8.0
+      cart_verify_detach: 5.0
+      srf_data: 2.0

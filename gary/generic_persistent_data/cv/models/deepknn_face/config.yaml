@@ -1,0 +1,6 @@
+model: recognizer
+type: face
+py_class: DeepknnFace
+model_file: deep_learning_knn_model.clf
+labels_file: faces.txt
+train: True

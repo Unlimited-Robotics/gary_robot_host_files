@@ -1,0 +1,247 @@
+/**:
+  ros__parameters:
+
+    groups:
+      - head
+      - chest
+
+
+    head:
+      id: 72
+      can_id: 0x103
+      recognizer: 0x48
+
+      behavior:
+        startup: "heart:10" ## name:repetition
+        shutdown: "wave_out:10"
+        emergency: "emergency:1"
+        recovery: "success:1"
+
+      animation_names:
+        - "on"
+        - "off"
+        - "arrow_down"
+        - "wave"
+        - "side_2_side"
+        - "talking"
+        - "thinking"
+        - "arrow_down_left"
+        - "breathing_line"
+        - "idle_line"
+        - "talking_in"
+        - "talking_out"
+        - "arrow_down_in"
+        - "arrow_down_out"
+        - "thinking_in"
+        - "thinking_out"
+        - "motion_8_in"
+        - "motion_8_out"
+        - "wave_in"
+        - "wave_out"
+        - "error"
+        - "success"
+        - "box"
+        - "loading_bar"
+        - "zip"
+        - "zip_2_talking"
+        - "emergency"
+        - "middle_finger"
+        - "stroke"
+        - "fully_charged"
+        - "charging"
+        - "heart"
+        - "cake"
+        - "eyes"
+        - "blink_eyes"
+        - "security"
+        - "countdown"
+        - "battery"
+#
+      animations:
+        on:
+          id: 0x01
+          plugin: "leds_plugins/GeneralAnimation"
+        off:
+          id: 0x00
+          plugin: "leds_plugins/GeneralAnimation"
+        arrow_down:
+          id: 0x02
+          plugin: "leds_plugins/GeneralAnimation"
+        wave:
+          id: 0x03
+          plugin: "leds_plugins/GeneralAnimation"
+        side_2_side:
+          id: 0x04
+          plugin: "leds_plugins/GeneralAnimation"
+        talking:
+          id: 0x05
+          plugin: "leds_plugins/GeneralAnimation"
+        thinking:
+          id: 0x06
+          plugin: "leds_plugins/GeneralAnimation"
+        arrow_down_left:
+          id: 0x07
+          plugin: "leds_plugins/GeneralAnimation"
+        breathing_line:
+          id: 0x08
+          plugin: "leds_plugins/GeneralAnimation"
+        idle_line:
+          id: 0x09
+          plugin: "leds_plugins/GeneralAnimation"
+        talking_in:
+          id: 0x0A
+          plugin: "leds_plugins/GeneralAnimation"
+        talking_out:
+          id: 0x0B
+          plugin: "leds_plugins/GeneralAnimation"
+        arrow_down_in:
+          id: 0x0C
+          plugin: "leds_plugins/GeneralAnimation"
+        arrow_down_out:
+          id: 0x0D
+          plugin: "leds_plugins/GeneralAnimation"
+        thinking_in:
+          id: 0x0E
+          plugin: "leds_plugins/GeneralAnimation"
+        thinking_out:
+          id: 0x0F
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_8_in:
+          id: 0x10
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_8_out:
+          id: 0x11
+          plugin: "leds_plugins/GeneralAnimation"
+        wave_in:
+          id: 0x12
+          plugin: "leds_plugins/GeneralAnimation"
+        wave_out:
+          id: 0x13
+          plugin: "leds_plugins/GeneralAnimation"
+        error:
+          id: 0x14
+          plugin: "leds_plugins/GeneralAnimation"
+        success:
+          id: 0x15
+          plugin: "leds_plugins/GeneralAnimation"
+        box:
+          id: 0x16
+          plugin: "leds_plugins/GeneralAnimation"
+        loading_bar:
+          id: 0x17
+          plugin: "leds_plugins/GeneralAnimation"
+        zip:
+          id: 0x18
+          plugin: "leds_plugins/GeneralAnimation"
+        zip_2_talking:
+          id: 0x19
+          plugin: "leds_plugins/GeneralAnimation"
+        emergency:
+          id: 0x20
+          plugin: "leds_plugins/GeneralAnimation"
+        middle_finger:
+          id: 0x1B
+          plugin: "leds_plugins/GeneralAnimation"
+        stroke:
+          id: 0x1C
+          plugin: "leds_plugins/GeneralAnimation"
+        fully_charged:
+          id: 0x1D
+          plugin: "leds_plugins/GeneralAnimation"
+        charging:
+          id: 0x1E
+          plugin: "leds_plugins/GeneralAnimation"
+        heart:
+          id: 0x21
+          plugin: "leds_plugins/GeneralAnimation"
+        cake:
+          id: 0xFE
+          plugin: "leds_plugins/CakeAnimation"
+        eyes:
+          id: 0xFF
+          plugin: "leds_plugins/EyeAnimation"
+        security:
+          id: 0x1F
+          plugin: "leds_plugins/SafetyAnimation"
+        countdown:
+          id: 0xFA
+          plugin: "leds_plugins/CountDownAnimation"
+        battery:
+          id: 0x1A
+          plugin: "leds_plugins/BatteryAnimation"
+        blink_eyes:
+          id: 0xF9
+          plugin: "leds_plugins/EyeAnimation"
+
+
+    chest:
+      id: 67
+      can_id: 0x103
+      recognizer: 0x43
+      animation_names:
+        - "off"
+        - "on"
+        - "motion_1"
+        - "motion_2"
+        - "motion_6"
+        - "motion_6_0"
+        - "motion_6_1"
+        - "motion_6_2"
+        - "motion_6_3"
+        - "motion_6_4"
+        - "motion_6_5"
+        - "motion_7"
+        - "programming"
+        - "standby"
+
+      behavior:
+        startup: "motion_1:1"
+        shutdown: "off:1"
+        emergency: "on:1"
+        recovery: "off:1"
+
+      animations:
+        off:
+          id: 0x00
+          plugin: "leds_plugins/GeneralAnimation"
+        on:
+          id: 0x01
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_1:
+          id: 0x02
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_2:
+          id: 0x03
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_6:
+          id: 0x04
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_6_0:
+          id: 0x05
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_6_1:
+          id: 0x06
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_6_2:
+          id: 0x07
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_6_3:
+          id: 0x08
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_6_4:
+          id: 0x09
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_6_5:
+          id: 0x0A
+          plugin: "leds_plugins/GeneralAnimation"
+        motion_7:
+          id: 0x0B
+          plugin: "leds_plugins/GeneralAnimation"
+        programming:
+          id: 0x0C
+          plugin: "leds_plugins/GeneralAnimation"
+        standby:
+          id: 0x0D
+          plugin: "leds_plugins/GeneralAnimation"
+
+#

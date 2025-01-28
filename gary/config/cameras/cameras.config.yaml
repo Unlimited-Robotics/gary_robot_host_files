@@ -1,0 +1,64 @@
+/gary/cameras/nav_top/**:
+  ros__parameters:
+    active: true
+    camera_type: realsense
+    camera_model: d435
+    serial_no: "215322074017"
+    accelerate_gpu_with_glsl: false
+
+/gary/cameras/nav_bottom/**:
+  ros__parameters:
+    active: true
+    camera_type: realsense
+    camera_model: d435
+    serial_no: "047322070293"
+    accelerate_gpu_with_glsl: false
+
+/gary/cameras/cv_top/**:
+  ros__parameters:
+    active: false
+    camera_type: realsense
+    camera_model: d435
+    serial_no: ""
+    accelerate_gpu_with_glsl: false
+
+/gary/cameras/back/**:
+  ros__parameters:
+    active: true
+    camera_type: realsense
+    camera_model: d435
+    serial_no: "045322072566"
+    accelerate_gpu_with_glsl: false
+
+/gary/cameras/front_ip/**:
+  ros__parameters:
+    active: true
+    camera_type: ip
+    stream_color: false
+    calibration_path: xxx/xxx/xxx
+    camera_name: front_ip
+    fps: 15.0
+    gstreamer:
+      appsink: appsink name=videosink max-buffers=2 sync=1 caps=video/x-raw,format=RGBA
+      decodebin: decodebin
+      latency: 0
+      location: rtsp://172.16.40.221:5005/routecam
+      protocols: tcp
+      videoconvert: nvvidconv
+      videoscale: videoscale
+/gary/cameras/back_ip/**:
+  ros__parameters:
+    active: true
+    camera_type: ip
+    stream_color: false
+    calibration_path: xxx/xxx/xxx
+    camera_name: front_ip
+    fps: 15.0
+    gstreamer:
+      appsink: appsink name=videosink max-buffers=2 sync=1 caps=video/x-raw,format=RGBA
+      decodebin: decodebin
+      latency: 0
+      location: rtsp://172.16.40.222:5005/routecam
+      protocols: tcp
+      videoconvert: nvvidconv
+      videoscale: videoscale

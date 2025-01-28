@@ -1,0 +1,10 @@
+{
+    "component": "DisplayScreen",
+    "goal_data":  {
+        "title": "Hello! I'm Gary 🤖",
+        "subtitle": "Connecting to Unlimited Robotics servers 🦾...",
+        "show_loader": true,
+        "theme": "WHITE",
+        "custom_style": {}
+    }
+ }

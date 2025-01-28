@@ -1,0 +1,28 @@
+/**:
+  ros__parameters:
+    frames_to_publish: ["camera_front_ip","camera_back_ip","camera_nav_bottom", "camera_nav_top", "camera_back"]
+    camera_nav_bottom:
+      parent_link: "base_link"
+      child_link:  "nav_bottom_camera_link"
+      translation: [0.147, 0.026, 0.809]
+      rotation:    [0.0, 0.0, 0.0]
+    camera_nav_top:
+      parent_link: "base_link"
+      child_link:  "nav_top_camera_link"
+      translation: [0.104, 0.01, 1.350]
+      rotation:    [0.0, 0.8465, 0.0]
+    camera_back:
+      parent_link: "base_link"
+      child_link:  "back_camera_link"
+      translation: [0.0, -0.02, 1.280]
+      rotation:    [0.0, 0.726, -3.141592]
+    camera_front_ip:
+      parent_link: "base_link"
+      child_link:  "front_ip_color_optical_frame"
+      translation: [0.0, -0.02, 1.280]
+      rotation:    [0.0, 0.726, -3.141592]
+    camera_back_ip:
+      parent_link: "base_link"
+      child_link:  "back_ip_color_optical_frame"
+      translation: [0.0, -0.02, 1.280]
+      rotation:    [0.0, 0.726, -3.141592]

@@ -1,0 +1,6 @@
+model: detector
+type: object
+py_class: Yolov8
+model_file: yolov8s.pt
+additional_files: 
+  - depth_anything_v2_metric_hypersim_vits_518.trt

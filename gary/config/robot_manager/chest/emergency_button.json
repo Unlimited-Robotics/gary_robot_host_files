@@ -1,0 +1,18 @@
+{
+	"component": "Animation",
+	"goal_data":
+	{
+		"title": "",
+		"subtitle": "",
+		"theme": "WHITE",
+		"type": "BASE64",
+		"back_button": "",
+		"custom_style": {
+			"background": {
+					"background": "url(https://i.postimg.cc/8zM0tqHs/temp-Image-NQpmwo.avif)",
+					"backgroundRepeat": "no-repeat",
+					"backgroundSize": "contain"
+			}
+	}
+}
+}

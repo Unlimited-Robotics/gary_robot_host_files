@@ -1,0 +1,11 @@
+[Unit]
+Description=Startup scripts
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'for script in /path/to/scripts/*; do [ -x "$script" ] && echo "Executing $script..." && "$script" & done; wait; echo "All scripts executed."'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
