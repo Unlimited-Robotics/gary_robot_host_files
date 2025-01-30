@@ -4,8 +4,9 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c 'for script in /path/to/scripts/*; do [ -x "$script" ] && echo "Executing $script..." && "$script" & done; wait; echo "All scripts executed."'
+ExecStart=/bin/bash -c 'sleep 5; for script in /opt/ur/startup_scripts/*; do [ -x "$script" ] && echo "Executing $script..." && "$script" & done; wait; echo "All scripts executed."'
 RemainAfterExit=yes
+User=root
 
 [Install]
 WantedBy=multi-user.target
