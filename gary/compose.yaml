@@ -10,7 +10,7 @@ services:
     - DETACHED_MODE=true
     healthcheck:
       disable: true
-    image: raya.tool.config_manager.config_manager:jetsonorin.4.25.beta
+    image: raya.tool.config_manager.config_manager:jetsonorin.4.27.beta
     network_mode: host
     pid: host
     privileged: true
