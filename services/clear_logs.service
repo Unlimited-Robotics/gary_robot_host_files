@@ -3,7 +3,7 @@ Description=Clear docker container logs
 
 [Service]
 Type=oneshot
-ExecStart=/bin/sh -c 'log_files="/media/ssd/docker/containers/*/*.log"; if [ -n "$$(ls $$log_files 2>/dev/null)" ]; then   for log_file in $$log_files; do rm -f "$$log_file" && echo "Deleted $$log_file" || echo "Failed to delete $$log_file"; done; else echo "No log files found"; fi'
+ExecStart=/bin/sh -c 'log_files="/media/ssd/docker/containers/*/*.log"; if [ -n "$(ls $log_files 2>/dev/null)" ]; then for log_file in $log_files; do rm -f "$log_file" && echo "Deleted $log_file" || echo "Failed to delete $log_file"; done; else echo "No log files found"; fi; rm -rf /opt/ur/gary/generic_persistent_data/shared_packages/*'
 
 [Install]
 WantedBy=multi-user.target
